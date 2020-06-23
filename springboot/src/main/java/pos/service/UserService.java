@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import pos.model.User;
 import pos.repository.UserRepository;
 
+import javax.validation.constraints.NotBlank;
+
 @Service
 public class UserService implements UserDetailsService {
 	
@@ -25,7 +27,7 @@ public class UserService implements UserDetailsService {
 				return users;
  		}
 		
-		
+
 		public User userEmail(@PathVariable (value = "emailUser") String email) {			
 				return userRepository.findUserbyEmail(email);
 	 	}
@@ -37,8 +39,11 @@ public class UserService implements UserDetailsService {
 				return user;
 	 	}
 		
-		public User storeUser( @RequestBody User user) {
+		public User create(@RequestBody User user) {
 			return userRepository.save(user);			
+		}
+		public void validate(User user) {
+			user.getEmail();
 		}
 		
 		public User updateUser( @RequestBody User user) {
