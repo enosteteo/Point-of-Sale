@@ -5,19 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ConstraintMode;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -33,6 +21,7 @@ public class User implements UserDetails {
 
 private static final long serialVersionUID = 1L;
 @Id
+@PrimaryKeyJoinColumn
 @GeneratedValue(strategy = GenerationType.AUTO)
 private Long id; 
 private String name;  
@@ -90,10 +79,17 @@ public void setPhones(List<Phone> phones) {
 	this.phones = phones;
 }
 
+	public User() {
+		super();
+	}
 
+	public User(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
 
-
-@Override
+	@Override
 public int hashCode() {
 	final int prime = 31;
 	int result = 1;

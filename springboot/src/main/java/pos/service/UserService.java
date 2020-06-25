@@ -18,36 +18,57 @@ import pos.repository.UserRepository;
 public class UserService implements UserDetailsService {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository repository;
+
+	protected UserRepository getRepository(){
+		return repository;
+	}
 		
 		public List<User> users() {						
-				List<User> users =  (List<User>) userRepository.findAll();		
+				List<User> users =  (List<User>) repository.findAll();
 				return users;
  		}
 		
 		
 		public User userEmail(@PathVariable (value = "emailUser") String email) {			
-				return userRepository.findUserbyEmail(email);
+				return repository.findUserbyEmail(email);
 	 	}
 	
 		
 		
 		public Optional<User> userWithId(@PathVariable (value = "idUser") Long id) {			
-			   Optional<User> user =  userRepository.findById(id);		
+			   Optional<User> user =  repository.findById(id);
 				return user;
 	 	}
-		
-		public User storeUser( @RequestBody User user) {
-			return userRepository.save(user);			
+
+	private void validateCreate(User model) throws Exception {
+		if (getRepository().findUserbyEmail(model.getEmail()) != null) {
+			throw new Exception("email.exists");
 		}
-		
-		public User updateUser( @RequestBody User user) {
-			return userRepository.save(user);			
+		if (getRepository().findByEmailAddress(model.getEmail()) != null) {
+			throw new Exception("email.exists");
+		}
+//		if (getRepository().findByCpf(model.getCpf()) != null) {
+//			throw new Exception("cpf.exists");
+//		}
+		if (model.getName().length() < 3) {
+			throw new Exception("name.invalid");
+		}
+	}
+
+	public User create(User model) throws Exception {
+			 validateCreate(model);
+			return repository.save(model);
+		}
+
+
+	public User updateUser( @RequestBody User user) {
+			return repository.save(user);
 		}
 		
 		public void deleteUser( @PathVariable (value = "idUser") Long id 
 				) {
-			 userRepository.deleteById(id);
+			 repository.deleteById(id);
 			return ;			
 		}
 		
@@ -56,7 +77,7 @@ public class UserService implements UserDetailsService {
 		@Override
 		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 						
-			User user = userRepository.findUserbyEmail(username);
+			User user = repository.findUserbyEmail(username);
 			
 			if (user == null) {
 				throw new UsernameNotFoundException("Usuário não encontrado");
