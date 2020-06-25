@@ -59,6 +59,10 @@ public class UserController {
 
     @PostMapping(value = "/", produces = "Application/json")
     public ResponseEntity<UserDTO> store(@RequestBody UserDTO userDTO) throws Exception {
+//		for (int phone = 0; phone < user.getPhones().size(); phone++) {
+//			user.getPhones().get(phone).setUser(user);
+//		}
+
         String passwordCrypted = new BCryptPasswordEncoder().encode(userDTO.getPassword());
         userDTO.setPassword(passwordCrypted);
 
@@ -83,8 +87,8 @@ public class UserController {
     }
 
 
-    @DeleteMapping(value = "/{idUser}", produces = "Application/text")
-    public String delete(@PathVariable(value = "idUser") Long id) {
+    @DeleteMapping(value = "/{id}", produces = "Application/text")
+    public String delete(@PathVariable(value = "id") Long id) {
         userService.delete(id);
         return "User Deleted";
     }
