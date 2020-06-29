@@ -2,14 +2,11 @@ package pos.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import pos.model.User;
 import pos.repository.UserRepository;
@@ -42,8 +39,14 @@ public class UserService implements UserDetailsService {
         if (getRepository().findUserbyEmail(model.getEmail()) != null) {
             throw new Exception("email.exists");
         }
-        if (model.getName().length() < 3) {
+        if (!model.getEmail().matches("[a-zA-Z._-]+@+[a-zA-Z.]+")) {
+            throw new Exception("email.invalid");
+        }
+        if (model.getName().length() < 3 | model.getName().length() < 250 |!model.getName().matches("[a-zA-Z\\s]*")) {
             throw new Exception("name.invalid");
+        }
+        if (!model.getName().matches("[a-zA-Z\\s]*")) {
+            throw new Exception(model.getName());
         }
     }
 

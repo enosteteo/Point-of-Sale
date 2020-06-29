@@ -28,7 +28,7 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping(value = "/", produces = "Application/json")
+    @GetMapping(value = "", produces = "Application/json")
     @CacheEvict(value = "cacheUserEvict", allEntries = true) // remove do cache coisas que napo estao sendo utilizadas
     @CachePut(value = "cacheUserPut") // indentifica atualizações no banco
     public ResponseEntity<List<User>> users() throws InterruptedException {
@@ -57,7 +57,7 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/", produces = "Application/json")
+    @PostMapping(value = "", produces = "Application/json")
     public ResponseEntity<UserDTO> store(@RequestBody UserDTO userDTO) throws Exception {
 //		for (int phone = 0; phone < user.getPhones().size(); phone++) {
 //			user.getPhones().get(phone).setUser(user);
