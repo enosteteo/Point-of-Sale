@@ -42,12 +42,6 @@ public class UserService implements UserDetailsService {
         if (getRepository().findUserbyEmail(model.getEmail()) != null) {
             throw new Exception("email.exists");
         }
-        if (getRepository().findByEmailAddress(model.getEmail()) != null) {
-            throw new Exception("email.exists");
-        }
-//		if (getRepository().findByCpf(model.getCpf()) != null) {
-//			throw new Exception("cpf.exists");
-//		}
         if (model.getName().length() < 3) {
             throw new Exception("name.invalid");
         }
