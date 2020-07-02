@@ -1,5 +1,6 @@
 package pos.dto;
 
+<<<<<<< HEAD
 import pos.model.Phone;
 import pos.model.Role;
 import pos.model.User;
@@ -27,6 +28,35 @@ public class UserDTO {
         String password = this.password;
         this.setPassword("");
         return new User(name, email, password, phone);
+=======
+import pos.model.Role;
+
+public class UserDTO {
+
+    private Integer id;
+
+    private String name;
+
+    private String email;
+
+    private String phone;
+
+    private String cpf;
+
+    private String newPassword;
+
+    private RoleDTO role;
+
+    public UserDTO() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
     }
 
     public String getName() {
@@ -37,6 +67,7 @@ public class UserDTO {
         this.name = name;
     }
 
+<<<<<<< HEAD
 //    public String getCpf() {
 //        return cpf;
 //    }
@@ -45,6 +76,8 @@ public class UserDTO {
 //        this.cpf = cpf;
 //    }
 
+=======
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
     public String getEmail() {
         return email;
     }
@@ -53,6 +86,7 @@ public class UserDTO {
         this.email = email;
     }
 
+<<<<<<< HEAD
     public String getPassword() {
         return password;
     }
@@ -75,5 +109,37 @@ public class UserDTO {
 
     public void setPhone(List<Phone> phone) {
         this.phone = phone;
+=======
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public RoleDTO getRole() {
+        return role;
+    }
+
+    public void setRole(RoleDTO role) {
+        this.role = role;
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
     }
 }

@@ -4,19 +4,35 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
 
 import pos.dto.UserDTO;
 import pos.model.User;
-import pos.repository.UserRepository;
 import pos.service.UserService;
 
+@RestController
+@RequestMapping("users")
+public class UserController {
 
+<<<<<<< HEAD
 @CrossOrigin(origins = "")
 @RestController
 @RequestMapping(value = "/user")
@@ -91,7 +107,46 @@ public class UserController {
     public String delete(@PathVariable(value = "id") Long id) {
         userService.delete(id);
         return "User Deleted";
+=======
+    private UserService userService;
+
+    @Autowired
+    public UserController (UserService userService) {
+        this.userService = userService;
     }
 
+    public UserService getService() {
+        return this.userService;
+    }
 
+    @GetMapping(value = "", produces = "Application/json")
+    public ResponseEntity<List<UserDTO>> list() {
+        List<UserDTO> users = getService().get();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}", produces = "Application/json")
+    public ResponseEntity<User> findById(@PathVariable(value = "id") Integer id) {
+        User user = getService().findById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "", produces = "Application/json")
+    public ResponseEntity<User> create(@RequestBody UserDTO userDTO) throws Exception {
+        User userSalved = getService().create(getService().toUserModel(userDTO));
+        return new ResponseEntity<>(userSalved, HttpStatus.CREATED);
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
+    }
+
+/*    @PutMapping(value = "/", produces = "Application/json")
+    public ResponseEntity<User> update(@RequestBody User user) throws Exception {
+        User userUpdate = getService().update(user);
+        return new ResponseEntity<>(userUpdate, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{idUser}", produces = "Application/text")
+    public ResponseEntity<?> delete(@PathVariable(value = "idUser") Long id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }*/
 }

@@ -1,6 +1,7 @@
 package pos.model;
 
 import java.io.Serializable;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -71,14 +72,12 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
+=======
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
 
-public List<Phone> getPhones() {
-	return phones;
-}
-public void setPhones(List<Phone> phones) {
-	this.phones = phones;
-}
+import javax.persistence.*;
 
+<<<<<<< HEAD
 	public User() {
 		super();
 	}
@@ -113,47 +112,105 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
+=======
+@Entity(name = "User")
+public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
-/*são os acesso do usuário  	ROLE_ADMIN, ROLE_FUNCIONARIO...*/
-@Override
-public Collection getAuthorities() {
+    @Column(name = "name")
+    private String name;
 
-	return roles;
-}
+    @Column(name = "email", unique = true)
+    private String email;
+>>>>>>> ff9392eef2843a31c374452482c018331554efbc
 
-@Override
-public String getUsername() {
-	// TODO Auto-generated method stub
-	return this.email;
-}
+    @Column(name = "password")
+    private String password;
 
-// não coloquei o getPassword(), pq já esta nas propiedades do User
-@JsonIgnore
-@Override
-public boolean isAccountNonExpired() {
-	// TODO Auto-generated method stub
-	return true;
-}
-@JsonIgnore
-@Override
-public boolean isAccountNonLocked() {
-	// TODO Auto-generated method stub
-	return true;
-}
-@JsonIgnore
-@Override
-public boolean isCredentialsNonExpired() {
-	// TODO Auto-generated method stub
-	return true;
-}
-@JsonIgnore
-@Override
-public boolean isEnabled() {
-	// TODO Auto-generated method stub
-	return true;
-}
+    @Column(name = "phone")
+    private String phone;
 
+    @Column(name = "cpf")
+    private String cpf;
 
+    @Column(name = "deleted")
+    private boolean deleted;
 
+    @ManyToOne
+    private Role role;
+
+    public User() {
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
